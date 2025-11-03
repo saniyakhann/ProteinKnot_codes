@@ -13,7 +13,8 @@ lp = 2
 protein_lengths = []
 proteins = []
 # file = '/Users/s1910360/Desktop/ML for Knot Theory/Protein data/cath-chain-list.txt' # original line from Djorjde's code 
-file = 'cath-chain-list.txt'  # local file reading 
+#file = 'cath-chain-list.txt'  # local file reading 
+file = 'cath-domain-list.txt'
 
 with open(file, newline='') as f:
     reader = csv.reader(f)
@@ -35,9 +36,13 @@ if not os.path.exists('Protein Gauss'):
     os.makedirs('Protein Gauss')
 
 for idx, data in enumerate(proteins):
-    prot = data[0][:4]
-    chain_char = data[0][4:5]
-    domain = data[0][6:]
+    #prot = data[0][:4]
+    #chain_char = data[0][4:5]
+    #domain = data[0][6:]
+    prot_id = data[0] 
+    prot = prot_id[:4]
+    chain_char = prot_id[4:5]
+    domain = prot_id[5:]
 
     print(f"Processing protein {idx+1}/{len(proteins)}: {prot}-{chain_char}")
     file_path = f'Protein Gauss/{prot}-{chain_char}.npz'
@@ -51,7 +56,8 @@ for idx, data in enumerate(proteins):
     
     if response.status_code != 200:
         print(f"Failed to download {prot}")
-        broken_proteins.append(f"{prot}-{chain_char}")
+        #broken_proteins.append(f"{prot}-{chain_char}")
+        broken_proteins.append(prot_id)
         continue
         
     pdb_data = response.text
@@ -62,10 +68,12 @@ for idx, data in enumerate(proteins):
     last_residue_id = None
     model = structure[0]
 
+    chain_char_upper = chain_char.upper()
     for chain in model:
         chain_id = chain.get_id()
         
-        if chain_id[0] == chain_char or (chain_id == ' ' and chain_char == '0'):
+        #if chain_id[0] == chain_char or (chain_id == ' ' and chain_char == '0'):
+         if chain_id.strip().upper() == chain_char_upper or (chain_id == ' ' and chain_char == '0'):
             for residue in chain:
                 if residue.has_id('CA'):
                     current_residue_id = residue.get_id()[1]
@@ -78,7 +86,8 @@ for idx, data in enumerate(proteins):
 
     if len(carbon_atoms) == 0:
         print(f"No carbon atoms found in chain {chain_char} of protein {prot}")
-        broken_proteins.append(f"{prot}-{chain_char}")
+       # broken_proteins.append(f"{prot}-{chain_char}")
+        broken_proteins.append(prot_id)
         continue
         
     print(f"  Found {len(carbon_atoms)} CA atoms, computing writhe matrix...")
