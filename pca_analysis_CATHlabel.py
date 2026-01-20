@@ -13,6 +13,7 @@ import seaborn as sns
 
 plt.style.use('seaborn-v0_8-darkgrid')
 
+#change path to the select 1000 from single domain proteins list 
 features_df = pd.read_csv('protein_features.csv') #feature vector data (only 1000 proteins calculated)
 cath_df = pd.read_csv('CATH_proteins.csv') #CATH labelled data 
 
