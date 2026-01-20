@@ -1,4 +1,4 @@
-#
+#Checking for NANs and Asymmetry in Matrices
 import numpy as np
 import os
 
