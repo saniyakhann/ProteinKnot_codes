@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('single_domain_proteins_complete.csv')
+df = pd.read_csv('single_domain_proteins_complete.csv')  #the final dataset is protein_final.csv after removal of class 6 proteins
 
 def CATH_value_counts(df, cath_col='cath_code'):
     total = len(df) 
