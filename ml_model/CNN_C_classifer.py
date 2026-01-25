@@ -1,3 +1,4 @@
+#most recent C classifying model, accuracy is coming out as 70%
 import numpy as np
 import pandas as pd
 import os
