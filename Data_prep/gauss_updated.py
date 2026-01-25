@@ -3,7 +3,7 @@ from numba import prange, njit
 
 @njit
 def compute_writhe_matrix(ring1, ring2):
-    """Compute standard writhe matrix WITHOUT windows"""
+ 
     n1, n2 = ring1.shape[0], ring2.shape[0]
     matrix = np.zeros((n1, n2))
     
@@ -19,7 +19,7 @@ def compute_writhe_matrix(ring1, ring2):
 
 @njit
 def compute_single_writhe(ring1, ring2, i, j):
-    """Compute writhe between single segment pair (no windows!)"""
+   
     wr = 0
     epsilon = 1e-12
     
