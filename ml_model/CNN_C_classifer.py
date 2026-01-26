@@ -120,10 +120,10 @@ class CNN(nn.Module):
         self.dropout = nn.Dropout(0.5)
     
     def forward(self, x):
-        x = self.pool(torch.relu(self.bn1(self.conv1(x))))  #843x843
-        x = self.pool(torch.relu(self.bn2(self.conv2(x))))  #421x421
-        x = self.pool(torch.relu(self.bn3(self.conv3(x))))  #210x210
-        x = self.pool(torch.relu(self.bn4(self.conv4(x))))  #105x105
+        x = self.pool(torch.relu(self.bn1(self.conv1(x))))  
+        x = self.pool(torch.relu(self.bn2(self.conv2(x))))  
+        x = self.pool(torch.relu(self.bn3(self.conv3(x))))  
+        x = self.pool(torch.relu(self.bn4(self.conv4(x))))  
         x = self.adaptive_pool(x) 
         x = x.view(x.size(0), -1)
         x = self.dropout(torch.relu(self.fc1(x)))
