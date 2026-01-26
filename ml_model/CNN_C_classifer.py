@@ -109,9 +109,9 @@ class CNN(nn.Module):
         self.bn3 = nn.BatchNorm2d(128)
         
         self.conv4 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
-        self.bn4 = nn.BatchNorm2d(256)
+        self.bn4 = nn.BatchNorm2d(256) #BatchNorm reduces internal covariate shift and improves training stability
         
-        self.pool = nn.MaxPool2d(2, 2)
+        self.pool = nn.MaxPool2d(2, 2) #maxpool reduces spatial size and keep the strongest signal
         self.adaptive_pool = nn.AdaptiveAvgPool2d((8, 8))  #to control feature map size before fc layers to reduce no. of parameters
         
         self.fc1 = nn.Linear(256 * 8 * 8, 256)
@@ -124,7 +124,7 @@ class CNN(nn.Module):
         x = self.pool(torch.relu(self.bn2(self.conv2(x))))  #421x421
         x = self.pool(torch.relu(self.bn3(self.conv3(x))))  #210x210
         x = self.pool(torch.relu(self.bn4(self.conv4(x))))  #105x105
-        x = self.adaptive_pool(x)  # 8x8 (less aggressive)
+        x = self.adaptive_pool(x) 
         x = x.view(x.size(0), -1)
         x = self.dropout(torch.relu(self.fc1(x)))
         x = self.fc2(x)
