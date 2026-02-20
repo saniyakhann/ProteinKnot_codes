@@ -143,7 +143,7 @@ class HierarchicalDataset(Dataset):
         
         c_norm = (c_val - 1) / 3.0      
         a_norm = a_val / 170.0           
-        t_norm = t_val / 400.0           
+        t_norm = t_val / 4090.0           
         
         c = torch.tensor([c_norm, a_norm, t_norm], dtype=torch.float32)
         y = torch.tensor(self.H_labels[idx], dtype=torch.long)
