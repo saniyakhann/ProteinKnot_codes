@@ -116,6 +116,10 @@ remaining_classes = np.unique(H_labels_sampled)
 print(f"\nClasses after filtering (min {min_samples} samples): {len(remaining_classes)}")
 print(f"Total samples: {len(H_labels_sampled)}")
 
+old_to_new = {old: new for new, old in enumerate(remaining_classes)}
+H_labels_sampled = np.array([old_to_new[l] for l in H_labels_sampled])
+idx_to_H = {new: idx_to_H[old] for old, new in old_to_new.items()}
+
 class HierarchicalDataset(Dataset):
     def __init__(self, paths, C_vals, A_vals, T_vals, H_labels):
         self.paths = paths
@@ -367,14 +371,14 @@ overall_acc = (all_preds == all_true).mean()
 print(f"Overall test accuracy: {overall_acc:.4f}\n")
 
 print("C-level breakdown:")
-for c_val in [0, 0.33, 0.67, 1.0]:  # Normalized C values
+for c_val in [0, 0.33, 0.67, 1.0]:  
     mask = np.isclose(all_C_vals, c_val, atol=0.01)
     c_preds = all_preds[mask]
     c_true = all_true[mask]
     
     if len(c_true) > 0:
         c_acc = (c_preds == c_true).mean()
-        actual_c = int(c_val * 3) + 1  # Convert back to 1,2,3,4
+        actual_c = int(c_val * 3) + 1  
         print(f"  C={actual_c}: {c_acc:.4f} (n={len(c_true)})")
 
 print("\nClassification report:")
