@@ -231,8 +231,6 @@ val_accuracies = []
 
 scaler = torch.amp.GradScaler('cuda', enabled=(device.type == "cuda"))
 
-print("Starting training\n")
-
 for epoch in range(max_epochs):
     model.train()
     train_loss = 0.0
@@ -252,11 +250,6 @@ for epoch in range(max_epochs):
         scaler.step(optimizer)
         scaler.update()
         train_loss += loss.item()
-
-        if batch_idx == 0 and epoch == 0:
-            batch_time = time.time() - epoch_start
-            est_epoch_time = (batch_time * len(train_loader)) / 60.0
-            print(f"Estimated epoch time: {est_epoch_time:.1f} minutes\n")
 
     avg_train_loss = train_loss / len(train_loader)
     train_losses.append(avg_train_loss)
@@ -298,14 +291,10 @@ for epoch in range(max_epochs):
             'num_H_classes': len(remaining_classes),
             'remaining_classes': remaining_classes.tolist()
         }, "cnn_dist_H_best.pth")
-        print(f"Model saved (Val Loss: {best_val_loss:.4f})")
     else:
         patience_counter += 1
         if patience_counter >= patience:
-            print(f"\nEarly stopping at epoch {epoch+1}")
             break
-
-print("\nEvaluating on test set\n")
 
 checkpoint = torch.load("cnn_dist_H_best.pth", map_location=device)
 model.load_state_dict(checkpoint['model_state'])
@@ -377,5 +366,3 @@ ax2.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.savefig('training_curves_dist_H.png', dpi=300)
 plt.close()
-
-print("\nTraining complete")
