@@ -39,7 +39,7 @@ ProteinKnot_codes/
 │       ├── H.py
 │       └── Inference_distance.py
 ├── Interpretability/
-│   ├── saliency_mapping_C.py
+│   ├── gradcam.py
 │   ├── dar_writhe_C.py
 │   ├── dar_boxplot_writhe_only_C.py
 │   ├── dar_writhe_A.py
@@ -127,7 +127,7 @@ Grad-CAM and DAR analysis is applied to the writhe model family at all four CATH
 levels. At the Class level only, paired writhe and distance saliency maps are generated 
 for selected individual proteins.
 
-- `saliency_mapping_C.py` — generates side-by-side Grad-CAM attention maps for a 
+- `gradcam.py` — generates side-by-side Grad-CAM attention maps for a 
 single specified protein comparing writhe and distance representations; set `domain_id` 
 and `true_class` at the top of the script before running
 - `dar_writhe_C.py` — computes the Diagonal Attention Ratio (DAR) for all Class-level 
@@ -164,6 +164,7 @@ small set of test structures
 ---
 
 ## Other scripts
+This are not directly relevant to the project and were initial codes I wrote to understand and experiment with the data
 
 - `Protein_visualisation.py` — interactive script that accepts a CATH domain ID, 
 downloads the corresponding PDB structure, and produces a three-panel figure showing 
