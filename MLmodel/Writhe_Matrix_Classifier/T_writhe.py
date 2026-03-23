@@ -296,7 +296,7 @@ for epoch in range(max_epochs):
 
 print("\nEvaluating on test set\n")
 
-# Reload best checkpoint before evaluation
+# Reload best checkpoint before evaluation - most recent one I saved
 checkpoint = torch.load("cnn_T_hierarchical_best.pth", map_location=device, weights_only=False)
 model.load_state_dict(checkpoint['model_state'])
 
