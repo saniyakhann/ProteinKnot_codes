@@ -17,6 +17,7 @@ ProteinKnot_codes/
 │   ├── data_filtering/
 │   │   ├── single_domain_proteins_filtering.py
 │   │   └── filter_missing_residues.py
+│   │   └── class6_removal.py
 │   ├── data_analysis/
 │   │   ├── explore_cath_heirarchy.py
 │   │   └── writhe_distribution_analysis.py
