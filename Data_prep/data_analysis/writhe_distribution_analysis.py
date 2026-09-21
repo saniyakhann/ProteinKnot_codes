@@ -53,7 +53,8 @@ def plot_writhe_distribution(total_writhes):
     plt.legend(fontsize=11)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig('writhe_distribution.png', dpi=300, bbox_inches='tight')
+    plt.savefig('writhe_distribution.png', dpi=300, bbox_inches='tight') #for pdf images
+    #plt.savefig('writhe_distribution.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 total_writhes, protein_names = extract_total_writhe_per_protein('Writhe_Matrices_Clean')
